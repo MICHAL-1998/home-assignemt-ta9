@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, signal, Signal } from '@angular/core';
 
 export interface Item {
-  id: number;
+  id: string;
   name: string;
   description: string;
 }
@@ -11,7 +11,9 @@ export interface Item {
 export class ItemsService {
   allItems = signal<Item[]>([]);
 
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(private readonly httpClient: HttpClient) {
+    this.getItems();
+  }
 
   getItems(): void {
     this.httpClient

@@ -1,1 +1,53 @@
-<p>add-item-form works!</p>
+<div class="item-form-container">
+  <div class="form-title">{{ title }}</div>
+  <div class="close-button" (click)="closeForm()">x</div>
+
+  <div class="form-content">
+    <form [formGroup]="itemForm" (ngSubmit)="submitForm()">
+      <div
+        class="form-group"
+        [ngClass]="{
+          'has-error':
+            itemForm.get('name')?.invalid && itemForm.get('name')?.touched
+        }"
+      >
+        <input formControlName="name" placeholder="שם הפריט" />
+        <div
+          *ngIf="itemForm.get('name')?.invalid && itemForm.get('name')?.touched"
+          class="error-message"
+        >
+          שם פריט נדרש
+        </div>
+      </div>
+
+      <div class="form-group color-picker-group">
+        <input type="color" id="colorPicker" formControlName="color" />
+        <label for="colorPicker">בחר צבע</label>
+      </div>
+
+      <div
+        class="form-group"
+        [ngClass]="{
+          'has-error':
+            itemForm.get('description')?.invalid &&
+            itemForm.get('description')?.touched
+        }"
+      >
+        <textarea formControlName="description" placeholder="תיאור"></textarea>
+        <div
+          *ngIf="
+            itemForm.get('description')?.invalid &&
+            itemForm.get('description')?.touched
+          "
+          class="error-message"
+        >
+          תיאור נדרש
+        </div>
+      </div>
+
+      <button type="submit" class="submit-button" [disabled]="itemForm.invalid">
+        שמור
+      </button>
+    </form>
+  </div>
+</div>

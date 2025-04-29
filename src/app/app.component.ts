@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ItemsListComponent } from './components/items-list/items-list.component';
 
@@ -8,6 +8,7 @@ import { ItemsListComponent } from './components/items-list/items-list.component
   imports: [ItemsListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.less',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   title = 'home-assignment';

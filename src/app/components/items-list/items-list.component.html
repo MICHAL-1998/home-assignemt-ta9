@@ -1,19 +1,28 @@
 <div><input placeholder="URL" /> <button>go</button></div>
+<div class="header">
 <div>Mannagement Tools</div>
-<div>
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+<div class="icons">
+  <svg class="icon"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    (click)="addItem()">
     <path d="M19 11H13V5H11V11H5V13H11V19H13V13H19V11Z" />
   </svg>
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon">
     <path
       d="M3 3H10V10H3V3M14 3H21V10H14V3M14 14H21V21H14V14M3 14H10V21H3V14Z"
     />
   </svg>
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+  <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
     <path d="M3 13H21V11H3V13M3 18H21V16H3V18M3 8H21V6H3V8Z" />
   </svg>
 </div>
- @for (currItem of itemsService.allItems(); track currItem.id){
-    <div>
-  {{ currItem.description }}
-</div>}
+</div>
+<input type="text" placeholder="search">
+@for (currItem of allItems(); track currItem.id){
+<item-info [item] = "currItem"></item-info>
+} @if (store.isFormOpen()) {
+<add-item-form></add-item-form>
+}

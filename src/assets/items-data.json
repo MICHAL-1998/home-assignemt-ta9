@@ -1,30 +1,30 @@
 [{
-    "id": 1111,
+    "id": "1111",
     "name": "Avigail Levi",
     "description": "Wedding"
 },
 {
-    "id": 2222,
+    "id": "2222",
     "name": "David Salamanka",
     "description": "Birthday"
 },
 {
-    "id": 3333,
+    "id": "3333",
     "name": "Danni Avdia",
     "description": "Bar Mitzva"
 },
 {
-    "id": 4444,
+    "id": "4444",
     "name": "Bunny The Man",
     "description": "Baby Shower"
 },
 {
-    "id": 5555,
+    "id": "5555",
     "name": "Bar Refaeli",
     "description": "Fashion Show"
 },
 {
-    "id": 6666,
+    "id": "6666",
     "name": "Matan Yahalom",
     "description": "Bachelorette Party"
 }]
