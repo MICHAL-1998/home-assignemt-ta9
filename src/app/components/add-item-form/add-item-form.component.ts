@@ -2,7 +2,6 @@ import {
   Component,
   ChangeDetectionStrategy,
   OnInit,
-  AfterViewInit,
 } from '@angular/core';
 import { inject } from '@angular/core';
 import {
@@ -11,13 +10,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Signal } from '@angular/core';
 import { ItemsStore } from '../../store/items.store';
 import { v4 as uuidv4 } from 'uuid';
 import { CommonModule, formatDate } from '@angular/common';
 import { ColorSketchModule } from 'ngx-color/sketch';
-import { log } from 'console';
-import { create } from 'domain';
 
 @Component({
   selector: 'add-item-form',
@@ -41,7 +37,6 @@ export class AddItemFormComponent implements OnInit {
 
   color!: string;
   showPicker = false;
-  //colorControl = this.itemForm.get('color');
   get colorControl() {
     return this.itemForm.get('color');
   }
@@ -96,7 +91,7 @@ export class AddItemFormComponent implements OnInit {
         item = { ...item, id: uuidv4() };
         this.store.addItem({ ...item, createdDate: today, lastUpdated: today });
       } else {
-        item = { ...item, id: current.id }; // שמירת אותו ID
+        item = { ...item, id: current.id }; 
         this.store.updateItem({
           ...item,
           createdDate: current.createdDate,
@@ -112,7 +107,6 @@ export class AddItemFormComponent implements OnInit {
   resetFormToEmpty() {
     this.itemForm.reset();
     this.itemForm.patchValue({ color: '#000000' });
-    //this.color = '#000000';
   }
 
   closeForm() {
