@@ -5,6 +5,9 @@ export interface Item {
   id: string;
   name: string;
   description: string;
+  color: string;
+  createdDate: string;
+  lastUpdated: string;
 }
 
 @Injectable({ providedIn: 'root' })

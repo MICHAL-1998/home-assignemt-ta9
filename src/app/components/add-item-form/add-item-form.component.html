@@ -1,53 +1,42 @@
 <div class="item-form-container">
-  <div class="form-title">{{ title }}</div>
-  <div class="close-button" (click)="closeForm()">x</div>
-
-  <div class="form-content">
-    <form [formGroup]="itemForm" (ngSubmit)="submitForm()">
-      <div
-        class="form-group"
-        [ngClass]="{
-          'has-error':
-            itemForm.get('name')?.invalid && itemForm.get('name')?.touched
-        }"
-      >
-        <input formControlName="name" placeholder="שם הפריט" />
-        <div
-          *ngIf="itemForm.get('name')?.invalid && itemForm.get('name')?.touched"
-          class="error-message"
-        >
-          שם פריט נדרש
-        </div>
-      </div>
-
-      <div class="form-group color-picker-group">
-        <input type="color" id="colorPicker" formControlName="color" />
-        <label for="colorPicker">בחר צבע</label>
-      </div>
-
-      <div
-        class="form-group"
-        [ngClass]="{
-          'has-error':
-            itemForm.get('description')?.invalid &&
-            itemForm.get('description')?.touched
-        }"
-      >
-        <textarea formControlName="description" placeholder="תיאור"></textarea>
-        <div
-          *ngIf="
-            itemForm.get('description')?.invalid &&
-            itemForm.get('description')?.touched
-          "
-          class="error-message"
-        >
-          תיאור נדרש
-        </div>
-      </div>
-
-      <button type="submit" class="submit-button" [disabled]="itemForm.invalid">
-        שמור
-      </button>
-    </form>
+  <div class="form-header">
+    <h2>{{ title }}</h2>
+    <button class="close-btn" (click)="closeForm()">×</button>
   </div>
+
+  <form [formGroup]="itemForm" (ngSubmit)="submitForm()">
+    <div class="form-group" [class.error]="isInvalid('name')">
+      <label>Creator Name</label>
+      <input formControlName="name" placeholder="insert your name" />
+      <small *ngIf="isInvalid('name')">required</small>
+    </div>
+
+    <div class="form-group color-group">
+      <label>Color</label>
+      <div
+        class="color-box"
+        (click)="togglePicker()"
+        [style.background]="colorControl?.value || '#000000'"
+      ></div>
+      <div class="picker-wrapper" *ngIf="showPicker">
+        <color-sketch
+          [color]="colorControl?.value"
+          (onChange)="onColorChange($event)"
+        ></color-sketch>
+      </div>
+    </div>
+
+    <div class="form-group" [class.error]="isInvalid('description')">
+      <label>Event</label>
+      <textarea
+        formControlName="description"
+        placeholder="insert happy event"
+      ></textarea>
+      <small *ngIf="isInvalid('description')">required</small>
+    </div>
+
+    <button class="submit-btn" type="submit" [disabled]="itemForm.invalid">
+      שמירה
+    </button>
+  </form>
 </div>

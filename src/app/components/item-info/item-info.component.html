@@ -1,1 +1,7 @@
-<div class="row">{{ item.description }}</div>
+<div class="row" (click)="updateItem()">
+  <span class="color-box" [style.background]="item.color"></span>
+  <div class="item">{{ item.description }}</div>
+  <div>{{ item.name }}</div>
+  <div>created date: {{ item.createdDate | date : "dd/MM/yyyy" }}</div>
+  <div>last update: {{ item.lastUpdated | date : "dd/MM/yyyy" }}</div>
+</div>

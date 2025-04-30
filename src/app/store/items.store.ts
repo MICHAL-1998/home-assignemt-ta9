@@ -1,10 +1,10 @@
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { Item, ItemsService } from '../services/items.service';
-import { inject } from '@angular/core';
+import { computed, effect, inject } from '@angular/core';
 
 export interface ItemsState {
   items: Item[];
-  searchTerm: string;
+  searchWord: string;
   currentPage: number;
   pageSize: number;
   isFormOpen: boolean;
@@ -13,7 +13,7 @@ export interface ItemsState {
 
 const initialState: ItemsState = {
   items: [],
-  searchTerm: '',
+  searchWord: '',
   currentPage: 1,
   pageSize: 10,
   isFormOpen: false,
@@ -25,11 +25,26 @@ export const ItemsStore = signalStore(
   withState(initialState),
   withMethods((store) => {
     const itemsService = inject(ItemsService);
-    // loadItems(items: Item[]) {
-    //   patchState(store, { items });
-    // },
+
+    effect(() => {
+      const initialItems = itemsService.allItems();
+      if (store.items().length === 0 && initialItems.length > 0) {
+        patchState(store, { items: initialItems });
+      }
+    });
     return {
-      items: itemsService.allItems,
+      items: computed(() => store.items()),
+
+      itemsFiltered: computed(() =>
+        store
+          .items()
+          .filter((item) =>
+            item.description
+              .toLowerCase()
+              .includes(store.searchWord().toLowerCase())
+          )
+      ),
+
       addItem(item: Item) {
         patchState(store, { items: [...store.items(), item] });
       },
@@ -40,8 +55,8 @@ export const ItemsStore = signalStore(
             .map((item) => (item.id === updatedItem.id ? updatedItem : item)),
         });
       },
-      setSearchTerm(searchTerm: string) {
-        patchState(store, { searchTerm });
+      setSearchWord(searchWord: string) {
+        patchState(store, { searchWord });
       },
       setPage(page: number) {
         patchState(store, { currentPage: page });
